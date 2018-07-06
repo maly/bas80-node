@@ -1,0 +1,37 @@
+{
+  "name": "bas80",
+  "version": "0.1.0",
+  "description": "BAS80 - an 8bit BASIC compiler",
+  "main": "bas80.js",
+  "scripts": {
+    "test": "node bas80.js ./test/test.bas -s",
+    "patch-release": "npm version patch && npm publish && git push --follow-tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maly/bas80-node.git"
+  },
+  "bin": {
+    "bas80": "./bas80.js"
+  },
+  "keywords": [
+    "BASIC language",
+    "compiler",
+    "Z80",
+    "8080"
+  ],
+  "author": "Martin Maly <maly@maly.cz> (http://www.bas80.com)",
+  "engines": {
+    "node": ">=5.10",
+    "npm": "1"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maly/bas80-node/issues"
+  },
+  "homepage": "https://github.com/maly/bas80-node#readme",
+  "dependencies": {
+    "asm80": "^1.4.0",
+    "commander": "^2.16.0"
+  }
+}
