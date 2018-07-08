@@ -1,170 +1,45 @@
-# BASIC80
+# BAS80.js
 
-The BASIC compiler for 8bit CPUs
+[![NPM Version](http://img.shields.io/npm/v/bas80.svg?style=flat)](https://www.npmjs.org/package/bas80)
+[![NPM Downloads](https://img.shields.io/npm/dm/bas80.svg?style=flat)](https://www.npmjs.org/package/bas80)
+[![NPM Downloads](https://img.shields.io/npm/dt/bas80.svg?style=flat)](https://www.npmjs.org/package/bas80)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/02de4cbfc6fc4ff1a9c0fe4e16d72bde)](https://www.codacy.com/app/maly/bas80-node?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=maly/bas80-node&amp;utm_campaign=Badge_Grade)
 
-Version 0
+  The BASIC compiler for the 8bit CPUs
 
-## Features:
+## Installation
 
-- Numbers can be decimal (123, -456) or hexadecimal ($BEEF)
-- You can omit the line number, if it is not necessary
-- The output is compatible with ASM80 syntax
-- Case insensitive (you can write PRINT as well as print or Print)
+  $ npm install bas80 -g
 
-## Limitations:
+## Usage
 
-- Integer numbers only
-- Two bytes integer, i.e. -32768 to +32767
-- No computed GOTO, GOSUB
+  `$ bas80 [options] filename`
 
-## Commands:
+  Assembles given the file, e.g. test.z80, into two files: test.hex (binary) and test.lst (listing).
+  
+  Filename has to be the last parameter.
 
-### LET var = expression
-### LET var$ = string expression
+  Options are:
 
-The LET keyword can be omitted.
+  - `-o, --output <file>` Output file name
+  - `-t, --type <type>` Output type [default: hex]. Available types are: hex, srec, com (for CP/M), sna, tap (for ZX Spectrum), prg (for C64)
+  - `-l, --list` Make listing (.lst file)
+  - `-s, --source` Make asm source (.a80 file)
+  - `-h, --help` See HELP
 
-### PRINT
+  
+## Format, directives etc.
 
-Can has one or more parameters, delimited with semicolon or comma.
+  See [BAS80 Guide](BASIC.md) for further information.
+  
+## Support me
 
-PRINT a,b,c
-PRINT a$,b$
-PRINT a+b*c
-PRINT "Hello,";
-PRINT " world."
+  [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PZRPU5M94NLJA)
 
-### INPUT
+## More info
 
-Allows combine more variables as well as PRINT expressions
+  See https://www.uelectronics.info/category/my-projects/ for more info
 
-INPUT a
-INPUT a,b
-INPUT "Your name:",a$
-
-### GOTO
-
-Needs a constant target: GOTO 100. No "computed GOTOs"
-
-### GOSUB
-
-Call subroutine at given label. 
-
-### RETURN 
-
-Return from subroutine.
-
-### REM
-
-Remark. Compiler ignores everything after this keyword until the end of line.
-
-### END
-
-End of program, return to the monitor.
-
-### STOP
-
-End of program with a "STOPPED" message.
-
-### FOR var = from TO limit [STEP step]
-
-The essential loop in BASIC.
-
-### NEXT var
-
-Next iteration for the FOR loop.
-
-### REPEAT
-
-The begin of REPEAT - UNTIL loop
-
-### UNTIL cond
-
-If cond is false, jump to the appropriate REPEAT command. Otherwise continues.
-
-### WHILE cond
-
-If cond is false, skip after the appropriate ENDWHILE command. Otherwise continues into the loop.
-
-### ENDWHILE
-
-Goes immediately back to the appropriate WHILE command...
-
-### CONTINUE
-
-Usable in the FOR, REPEAT or WHILE loops. Invoke the next iteration.
-
-### BREAK
-
-Usable in the FOR, REPEAT or WHILE loops. Properly exits the loop.
-
-### POKE addr,val
-
-Store one byte to given address
-
-### DPOKE addr,val
-
-Store two bytes to given address
-
-### DIM var(length)
-
-Prepare an array of int. Arrays are indexed from 0, so DIM A(10) prepares an array with 10 items, denotes as A(0) .. A(9)
-
-DIM should appears in the source code prior to the first using of array! Not in program flow, so this won't work:
-``` 
-10 GOTO 50
-20 A(5) = 5
-...
-50 DIM A(10)
-60 GOTO 20
-```
-You have to place DIM at the top of code. DIM does nothing in code, it just inform the compiler about the array limits.
-
-Array length has to be a constant, so no computed DIMs allowed!
-
-## FUNCTIONS
-
-### int ABS (int)
-
-Returns the absolute value
-
-### int NEG (int)
-
-Returns the negative value (*-1)
-
-### int RND ()
-
-Returns a pseudorandom number
-
-### int SGN (int)
-
-Number sign. 1 if positive, -1 if negative
-
-### int LEN (string)
-
-Returns the length of string.
-
-### int PEEK (addr)
-
-Returns the byte value at given address
-
-### int DPEEK (addr)
-
-Returns the word value (two bytes) at given address
-
-### int VAL (string)
-
-Returns the decimal value of string.
-
-
-## Operators
-
-=, <>, <, >, <=, >= as usual
-
-### Shorthands
-
-- var++ increment
-- var+++ var+=2
-- var-- decrement
-- var--- var-=2
-- var** var*=2
+## Changes
+  
+  - 0.9.9: First working version
