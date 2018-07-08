@@ -1,6 +1,6 @@
 {
   "name": "bas80",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "BAS80 - an 8bit BASIC compiler",
   "main": "bas80.js",
   "scripts": {
