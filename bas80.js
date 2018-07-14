@@ -41,9 +41,9 @@ var hextools = require("./node_modules/asm80/hextools.js");
 var BAS = require("./monolith.js");
 
 
-var program = require('commander');
+var program = require("commander");
 
-program.version('0.1.0')
+program.version("0.1.0")
   .usage("[options] <file>")
   .option("-o, --output <file>", "Output file name")
   .option("-t, --type <type>", "Output type [default: hex] - hex, srec, com (for CP/M), sna, tap (for ZX Spectrum), prg (for C64)")
@@ -86,7 +86,7 @@ var source = LFS.load(program.args[program.args.length-1]);
 
 //console.log(source)
 
-var data = BAS.compile(source)
+var data = BAS.compile(source);
 
 
 
@@ -165,10 +165,10 @@ if (ASM.PRAGMAS.indexOf("SEGMENT")>=0) {
   //FS.save(fileEdit+'.hex', hex)
   var mseg = ASM.hex(vx[0],"DSEG");
   npath.ext =".dseg.hex";
-  if (mseg.length>11) LFS.save(path.format(npath),mseg);
+  if (mseg.length>11) {LFS.save(path.format(npath),mseg);}
   npath.ext =".eseg.hex";
   mseg = ASM.hex(vx[0],"ESEG");
-  if (mseg.length>11) LFS.save(path.format(npath),mseg);
+  if (mseg.length>11) {LFS.save(path.format(npath),mseg);}
   npath.ext =".hex";
 }
 
@@ -198,7 +198,7 @@ if (otype === "tap") {
 
 LFS.save(path.format(npath),outdata);
 
-var lpath
+var lpath;
 if (program.list) {
   lpath = path.parse(path.format(npath));
   lpath.ext = ".lst";
