@@ -60,6 +60,49 @@ Call subroutine at given label.
 
 Return from subroutine. Expression value is, if used, returned as from function
 
+### IF expr THEN command[s]
+
+Evaluate expression. If its value is zero, then skip to the next line. If nonzero, continues.
+
+### IF expr THEN label
+
+Shortcut for `IF expr THEN GOTO label`
+
+### IF expr THEN command[s] ELSE command[s]
+
+Evaluate expression. If its value is zero, then skip to the ELSE part. If nonzero, continues until the ELSE part, then skip to the next line.
+
+`THEN label` and `ELSE label` are the shortcuts for `THEN GOTO label` or `ELSE GOTO label`
+
+### IF expr THEN ... [ELSE ...] ENDIF
+
+A multiline variant of IF-THEN[-ELSE]. E.g.
+
+```
+IF a=10 THEN
+ ... do something for a=10
+ENDIF
+```
+or
+```
+IF a=10 THEN
+ ... do something for a=10
+ELSE
+ ... do something for a is not 10
+ENDIF
+``` 
+
+
+### ON expr GOTO l0[,l1...]
+
+Evaluate an expression and GOTO to n-th label. Indexed from 0, so if expr=0, then goto to l0, if expr=1 then goto to l1 etc. You can use up to 128 labels at once. If expr > num of labels, then no goto is performed.
+
+_ON takes only the lower part of expression value. So expr=256 is the same as expr=0._
+
+### ON expr GOSUB l0[,l1...]
+
+The same as ON expr GOTO, but this time it is calling a subroutine instead the jump.
+
 ### REM
 
 Remark. Compiler ignores everything after this keyword until the end of line.
@@ -111,6 +154,14 @@ Store one byte to given address
 ### DPOKE addr,val
 
 Store two bytes to given address
+
+### OUT port,val
+
+Send one byte to the given I/O port
+
+### WAIT port,value[,xorvalue]
+
+The WAIT statement stops execution until a specific port matches a specific bit pattern. The data read at the port is XORed with the value xorVAL, and then ANDed with the desired value. If result is zero, read is repeated until value is nonzero.
 
 ### SWAP var1,var2
 
@@ -256,7 +307,7 @@ Returns the negative value (*-1)
 
 ### int RND ()
 
-Returns a pseudorandom number
+Returns a pseudorandom number (-32768 .. 32767)
 
 ### int SGN (int)
 
@@ -274,14 +325,27 @@ Returns the byte value at given address
 
 Returns the word value (two bytes) at given address
 
+### int IN (port)
+
+Returns the byte value from given port number
+
 ### int VAL (string)
 
 Returns the decimal value of string.
+
+### int ASC (string)
+
+Returns the ASCII code of the first character in a string.
+
 
 ### int HIGH (int)
 ### int LOW (int)
 
 Returns upper / lower byte of int
+
+## Pointers
+
+You can getg a pointer (an unsigned int) to a variable, an array, a string variable or a string constant. Use angle braces around the element, e.g. `LET a = [b]` to get an address to a memory place where the B variable resides.
 
 ## String slices
 
@@ -304,6 +368,12 @@ A$ -> "Help, world"
 ## Operators
 
 =, <>, <, >, <=, >= as usual
+
+& - bitwise AND
+| - bitwise OR
+^ - bitwise XOR
+
+AND, OR - logic AND, OR 
 
 ### Shorthands
 
